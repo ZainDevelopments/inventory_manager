@@ -1,8 +1,10 @@
+import mongoLink from config.js;
+
 const { MongoClient } = require("mongodb");
 
+
 //Secure in another file later on
-const uri =
-  "mongodb+srv://ZainAliDevelopments:%23Zainpokemon1122@zaindevelopments.moocc6b.mongodb.net/";
+const uri = mongoLink;
 const client = new MongoClient(uri);
 const database = client.db("PS97");
 
