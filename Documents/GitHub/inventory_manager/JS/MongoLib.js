@@ -3,6 +3,7 @@ import mongoLink from config.js;
 const { MongoClient } = require("mongodb");
 
 
+
 //Secure in another file later on
 const uri = mongoLink;
 const client = new MongoClient(uri);
