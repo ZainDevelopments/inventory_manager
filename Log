@@ -7,3 +7,4 @@
 9/16/2023 8:00pm - 11:30pm: Worked on trying to hide some leaked information within github, added some elements into the webpage and worked on the database code for a bit.
 9/24/2023 7:00pm - Added multiple more functions in node.js to query and interact with the database. Allowing to insert documnets within the collecitons and checking to see if the documnets exists.
 9/24/2023 9:00pm - Added more functions to interact with the database. These functions allow users to delete collections or documents within the database. Also working on adding functions for a more dynamic database. Such as moving doucents from one collection to another.
+9/24/2023 11:00pm - Added function to move documents between collections. Updated deleting functions.
