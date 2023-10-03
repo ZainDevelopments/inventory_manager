@@ -9,4 +9,5 @@
 9/24/2023 9:00pm: - Added more functions to interact with the database. These functions allow users to delete collections or documents within the database. Also working on adding functions for a more dynamic database. Such as moving doucents from one collection to another.
 9/24/2023 10:50pm: - Added function to move documents between collections. Updated deleting functions.
 9/24/2023 10:50pm: - Updated Trello work log to keep up to date.
-9/25/2024 7:00pm - 9:13pm: Added some more functionality to the database code. Also updated trello.
+9/25/2023 7:00pm - 9:13pm: - Added some more functionality to the database code. Also updated trello.
+10/1/2023 2:00pm - 11:00pm: - Project ran into major issues so I decidede to scrap and remake it, keeping the same ideas and functinos, just remodling it to work better.
