@@ -12,3 +12,4 @@
 9/25/2023 7:00pm - 9:13pm: - Added some more functionality to the database code. Also updated trello.
 10/1/2023 2:00pm - 11:00pm: - Project ran into major issues so I decidede to scrap and remake it, keeping the same ideas and functinos, just remodling it to work better.
 10/12/2023 10pm - 12:17am - Added npm packages (express, env, ejs). Also created a server to connect the front end to the backend.
+10/13/2023 12:17am - 2:20am - Added a lot more to the frontend including the template of how I want the documents to be displayed.
