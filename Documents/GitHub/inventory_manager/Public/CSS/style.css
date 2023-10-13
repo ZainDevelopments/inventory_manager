@@ -79,3 +79,23 @@ body {
    list-style-type: none;
    margin-bottom: 5%;
 }
+
+#doc-table {
+   border: 1px solid black;
+   margin-left: 1%;
+   margin-right: 1%;
+   width: 98%;
+}
+
+.table-headers {
+   border-bottom: 1px solid black;
+}
+
+.table-rows {
+   border: 1px solid black;
+}
+
+.inner-text {
+   border: 2px solid cyan;
+   margin: 0;
+}
