@@ -1,5 +1,3 @@
-//import mongoLink from config.js;
-
 const { MongoClient } = require("mongodb");
 
 if(process.env.MONGO_KEY !== 'production') {

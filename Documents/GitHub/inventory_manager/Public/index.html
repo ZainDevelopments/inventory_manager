@@ -8,21 +8,26 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="CSS\style.css">
         <script src="JS\MongoLib.js" async defer></script>
+        <script src="JS\page.js" async defer></script>
         <script type="module" src="JS\config.js" async defer></script>
     </head>
     <body>
+        <div id="background">
+            <div id="outer-border">
+                <div id="header">
+                    <ul id="header-list">
+                        <li id="database-list"><h1 id="database-header">Database</h1></li>
+                        <li id="collection-list"><h1 id="collection-header">Collection</h1></li>
+                    </ul>
+                </div>
+                <div id="doc-body"> 
+                    <h1 id="body-liner">Documents</h1>
+                    <hr id="line">
+                    <div id="">
 
-        <div id="outter-container">
-            <div id="main-container">
-                <div id="directory-container">
-                    <div id="directory-text-con">
-                        <p class="dire-text">Database</p>
-                        <p class="dire-text">Collection</p>
-                        <p class="dire-text">Document</p>
                     </div>
                 </div>
             </div>
         </div>
-        
     </body>
-</html>
+    </html>
