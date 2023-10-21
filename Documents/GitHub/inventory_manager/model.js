@@ -1,0 +1,10 @@
+const mongoose = require('mongoose');
+
+const documentSchema = new mongoose.Schema({
+    assestTag: String,
+    serialNumber: String,
+    deviceType: String,
+    organization: String,
+})
+
+module.exports = mongoose.model('Doc', documentSchema);

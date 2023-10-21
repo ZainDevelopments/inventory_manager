@@ -1,4 +1,6 @@
 const { MongoClient } = require("mongodb");
+var mongoose = require('mongoose');
+const Model = require('model.js');
 
 if(process.env.MONGO_KEY !== 'production') {
   require('dotenv').config();
@@ -7,34 +9,6 @@ if(process.env.MONGO_KEY !== 'production') {
 const MONGO_KEY = process.env.MONGO_KEY;
 
 console.log(MONGO_KEY);
-
-let document = {
-  asset_tag: 123456,
-  serial_number: 1233451234213213,
-  device_type: "Laptop",
-  organization: "Department of Education"
-};
-
-let documents = [
-  {
-    asset_tag: 1212313456,
-    serial_number: 234213213,
-    device_type: "Laptop",
-    organization: "Department of Education"
-  },
-  {
-    asset_tag: 56,
-    serial_number: 13,
-    device_type: "Laptop",
-    organization: "Department of Education"
-  },
-  {
-    asset_tag: 16,
-    serial_number: 1231233,
-    device_type: "iPad",
-    organization: "Department of Education"
-  }
-];
 
 
 
