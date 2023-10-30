@@ -7,8 +7,8 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="CSS\style.css">
-        <script src="..\JS\MongoLib.js" async defer></script>
-        <script src="..\JS\page.js" async defer></script>
+        <script src="JS\MongoLib.js" async defer></script>
+        <script src="JS\page.js" async defer></script>
         <script type="module" src="JS\config.js" async defer></script>
     </head>
     <body>
@@ -32,19 +32,15 @@
                                 <td class="table-headers">Assigned To</td>
                                 <td class="table-headers">ID</td>
                             </thead>
+                            <% data.forEach((item) => {  %>
                             <tr class="table-rows">
-                                <td class="table-rows"><p class="inner-text">16</p></td>
-                                <td class="table-rows"><p class="inner-text">1231233</p></td>
-                                <td class="table-rows"><p class="inner-text">iPad</p></td>
-                                <td class="table-rows"><p class="inner-text">N/A</p></td>
-                                <td class="table-rows"><p class="inner-text">651a4d3c46bb4720dfdb3aa7</p></td>
+                                <td class="table-rows"><p class="inner-text"><%= item.assetTag%></p></td>
+                                <td class="table-rows"><p class="inner-text"><%= item.serialNumber%></p></td>
+                                <td class="table-rows"><p class="inner-text"><%= item.deviceType%></p></td>
+                                <td class="table-rows"><p class="inner-text"><%= item.assignedTo%></p></td>
+                                <td class="table-rows"><p class="inner-text"><%= item.id%></p></td>
                             </tr>
-                            <tr class="table-rows">
-                                <td>12131231</td>
-                                <td>234213213</td>
-                                <td>Laptop</td>
-                                <td>Zain</td>
-                                <td>651a4d3c46bb4720dfdb3aa5</td>
+                            <% })%>
                             </tr>
                         </table>
                     </div>
@@ -52,4 +48,4 @@
             </div>
         </div>
     </body>
-    </html>
+</html>

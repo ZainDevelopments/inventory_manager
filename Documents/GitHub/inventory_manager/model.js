@@ -4,6 +4,7 @@ const documentSchema = new mongoose.Schema({
     assestTag: String,
     serialNumber: String,
     deviceType: String,
+    assignedTo: String,
     organization: String,
 })
 
