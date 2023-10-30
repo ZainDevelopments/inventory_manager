@@ -15,5 +15,6 @@
 10/12/2023 10pm - 12:17am - Added npm packages (express, env, ejs). Also created a server to connect the front end to the backend.
 10/13/2023 12:17am - 2:20am - Added a lot more to the frontend including the template of how I want the documents to be displayed.
 10/22/2023 ~8:00pm - Added more work into getting information processed to the front end.
-10/27/2023 4:40pm - 5:38pm - Watching videos on how to get my MongoDB data to be displayed on to my front end. (I forgot I can also record hours spent reseraching for my project. I have done approximately 10 hours of research for various different topics throughout that have not been documented.)
-10/27/2023 5-40pm - 6:16pm - Watched more videos to grasp a good udnerstanding on how to use EJS and MongoDB along with Express to get my front end and back end working properly.
+10/27/2023 4pm:40pm - 5:38pm - Watching videos on how to get my MongoDB data to be displayed on to my front end. (I forgot I can also record hours spent reseraching for my project. I have done approximately 10 hours of research for various different topics throughout that have not been documented.)
+10/27/2023 5pm-40pm - 6:16pm - Watched more videos to grasp a good udnerstanding on how to use EJS and MongoDB along with Express to get my front end and back end working properly.
+10/30/2023 3pm - 4:23pm - Redoing the back-end to front-end connection. Created dummy data to test to see if the EJS template will work. It did.
