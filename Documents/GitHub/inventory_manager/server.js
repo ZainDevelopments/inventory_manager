@@ -25,11 +25,18 @@ app.use(express.static('Public'));
 
 app.get('/data', async (req, res) => {
     try {
-        const collection = db.collection("Test");
-        const docs = await collection.find({}).toArray();
+        // const collection = db.collection("Test");
+        // const docs = await collection.find({}).toArray();
 
-        res.render('data', {items : docs});
+        // res.render('data', {items : docs});
 
+        FindAllDocs(db, "TestTwo").then((doc) => {
+            console.log(doc)
+            res.render('data', {items : doc})
+        },
+        () => {
+            res.send("Mongo Error");
+        })
     } catch (err) {
         console.error(err);
         // Handle the error gracefully, for example, by sending an error response to the client.
@@ -51,7 +58,7 @@ client.connect().then(()=> {
 
     //Helper functinos
 function changeDB(name) {
-    db = client.db(name);
+    db = client.db(name); 
 }
 
 function changeCollection(name) {
@@ -75,9 +82,8 @@ async function CreateCol(db, colName) {
 }
 
 async function FindAllDocs(db, col) {
-    const docs = await db.collection(col).find({}).toArray().then(()=> {
-        console.log(`All documents returned from ${col}`);
-    });
+    const collection = db.collection(col);
+    const docs = await collection.find({}).toArray();
     return docs;
 }
 

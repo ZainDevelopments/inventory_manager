@@ -1,6 +1,5 @@
 const {MongoClient} = require("mongodb");
 var mongoose = require('mongoose');
-const Model = require('../../model');
 
 if(process.env.MONGO_KEY !== 'production') {
   require('dotenv').config();
@@ -35,17 +34,17 @@ async function closeDB() {
   }
 }
 
-export function changeDB(name) {
+function changeDB(name) {
   db = client.db(name);
 }
 
-export async function listDatabases(client) {
+async function listDatabases(client) {
   dbList = await client.db().admin().listDatabases();
   console.log("Databases:");
   dbList.databases.forEach(db => console.log(` - ${db.name}`))
 }
 
-export async function CreateCol(db, colName) {
+async function CreateCol(db, colName) {
   try {
     linkDB();
     const col = db.collection(colName);
@@ -58,7 +57,7 @@ export async function CreateCol(db, colName) {
   }
 }
 
-export async function CreateManyCol(db, colList) {
+async function CreateManyCol(db, colList) {
   linkDB();
   for(let i = 0; i < colList.length; i++) {
     await db.createCollection(colList[i]);
@@ -66,7 +65,7 @@ export async function CreateManyCol(db, colList) {
   }
 }
 
-export async function ListCols(db) {
+async function ListCols(db) {
   try {
     linkDB();
     const list = await db.collections();
@@ -83,7 +82,7 @@ export async function ListCols(db) {
   }
 }
 
-export async function CheckColExist(db, colName) {
+async function CheckColExist(db, colName) {
   try {
     linkDB();
     const list = await db.collections();
@@ -101,7 +100,7 @@ export async function CheckColExist(db, colName) {
   }
 }
 
-export async function DropCol(db, col) {
+async function DropCol(db, col) {
   try {
     linkDB();
     await db.collection(col).drop();
@@ -113,7 +112,7 @@ export async function DropCol(db, col) {
   }
 }
 
-export async function CreateDoc(db, col, doc) {
+async function CreateDoc(db, col, doc) {
   try {
     linkDB();
     await db.collection(col).insertOne(doc);
@@ -125,7 +124,7 @@ export async function CreateDoc(db, col, doc) {
   }
 }
 
-export async function CreateManyDocs(db, col, docList) {
+async function CreateManyDocs(db, col, docList) {
   try {
     linkDB();
     const result = await db.collection(col).insertMany(docList);
@@ -137,7 +136,7 @@ export async function CreateManyDocs(db, col, docList) {
   }
 }
 
-export async function FindDocId(db, col, assestTag) {
+async function FindDocId(db, col, assestTag) {
   try {
     linkDB();
     const doc = await db.col.find({assetTag : assestTag});
@@ -149,7 +148,7 @@ export async function FindDocId(db, col, assestTag) {
   }
 }
 
-export async function DropDeviceDocs(db, col, field) {
+async function DropDeviceDocs(db, col, field) {
   try {
     linkDB();
     const result = await db.collection(col).deleteMany({device_Field : field});
@@ -161,7 +160,7 @@ export async function DropDeviceDocs(db, col, field) {
   }
 }
 
-export async function DropAssestDoc(db, col, tag) {
+async function DropAssestDoc(db, col, tag) {
   try{
     linkDB();
     const result = await db.collection(col).deleteMany({assetTag : tag});
@@ -173,7 +172,7 @@ export async function DropAssestDoc(db, col, tag) {
   }
 }
 
-export async function DropSerialDoc(db, col, serial) {
+async function DropSerialDoc(db, col, serial) {
   try {
     linkDB();
     const result = await db.collection(col).deleteMany({serialNumber : serial});
@@ -185,7 +184,7 @@ export async function DropSerialDoc(db, col, serial) {
   }
 }
 
-export async function ListDocs(db, col) {
+async function ListDocs(db, col) {
   try {
     linkDB();
     const list = await db.collection(col).find({}).toArray();
@@ -198,7 +197,7 @@ export async function ListDocs(db, col) {
   }
 }
 
-export async function MoveDoc(docTag, colSource, colDest) {
+async function MoveDoc(docTag, colSource, colDest) {
   try {
     linkDB();
     const sourceCollection = db.collection(colSource);
