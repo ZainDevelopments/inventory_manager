@@ -14,6 +14,9 @@ const uri = MONGO_KEY;
 const client = new MongoClient(uri);
 let db = client.db("PS97");
 
+export function print(n) {
+  console.log(n);
+}
 
 async function linkDB() {
   try {
@@ -21,25 +24,30 @@ async function linkDB() {
     console.log("CONNECTED");
   } catch(e) {
     console.log(e);
-  } finally {
-    await client.close();
   }
 }
 
-linkDB();
+async function closeDB() {
+  try {
+    await client.close();
+  } catch(e) {
+    console.log(e);
+  }
+}
 
-function changeDB(name) {
+export function changeDB(name) {
   db = client.db(name);
 }
 
-async function listDatabases(client) {
+export async function listDatabases(client) {
   dbList = await client.db().admin().listDatabases();
   console.log("Databases:");
   dbList.databases.forEach(db => console.log(` - ${db.name}`))
 }
 
-async function CreateCol(db, colName) {
+export async function CreateCol(db, colName) {
   try {
+    linkDB();
     const col = db.collection(colName);
     await db.createCollection(colName);
     console.log(`Created new Collection '${colName}' inside ${db.name}`);
@@ -50,15 +58,17 @@ async function CreateCol(db, colName) {
   }
 }
 
-async function CreateManyCol(db, colList) {
+export async function CreateManyCol(db, colList) {
+  linkDB();
   for(let i = 0; i < colList.length; i++) {
     await db.createCollection(colList[i]);
     console.log(`Created new Collection '${colName.name}' inside ${db.name}`);
   }
 }
 
-async function ListCols(db) {
+export async function ListCols(db) {
   try {
+    linkDB();
     const list = await db.collections();
     console.log("Collections: ")
     list.forEach(c => {
@@ -73,8 +83,9 @@ async function ListCols(db) {
   }
 }
 
-async function CheckColExist(db, colName) {
+export async function CheckColExist(db, colName) {
   try {
+    linkDB();
     const list = await db.collections();
     list.forEach(c => {
       if(c.collectionName == colName) {
@@ -90,8 +101,9 @@ async function CheckColExist(db, colName) {
   }
 }
 
-async function DropCol(db, col) {
+export async function DropCol(db, col) {
   try {
+    linkDB();
     await db.collection(col).drop();
     console.log(`'${col}' Collection was deleted`);
   } catch(e) {
@@ -101,8 +113,9 @@ async function DropCol(db, col) {
   }
 }
 
-async function CreateDoc(db, col, doc) {
+export async function CreateDoc(db, col, doc) {
   try {
+    linkDB();
     await db.collection(col).insertOne(doc);
     console.log(`Created ${doc.name} inside ${col}`);
   } catch(e) {
@@ -112,8 +125,9 @@ async function CreateDoc(db, col, doc) {
   }
 }
 
-async function CreateManyDocs(db, col, docList) {
+export async function CreateManyDocs(db, col, docList) {
   try {
+    linkDB();
     const result = await db.collection(col).insertMany(docList);
     console.log(`${result.insertedCount} Documents were added`);
   } catch(e) {
@@ -123,8 +137,9 @@ async function CreateManyDocs(db, col, docList) {
   }
 }
 
-async function FindDocId(db, col, assestTag) {
+export async function FindDocId(db, col, assestTag) {
   try {
+    linkDB();
     const doc = await db.col.find({assetTag : assestTag});
     console.log(`${assestTag} was found`);
   } catch(e) {
@@ -134,8 +149,9 @@ async function FindDocId(db, col, assestTag) {
   }
 }
 
-async function DropDeviceDocs(db, col, field) {
+export async function DropDeviceDocs(db, col, field) {
   try {
+    linkDB();
     const result = await db.collection(col).deleteMany({device_Field : field});
     console.log(`${result.deletedCount} Documents deleted`)
   } catch(e) {
@@ -145,8 +161,9 @@ async function DropDeviceDocs(db, col, field) {
   }
 }
 
-async function DropAssestDoc(db, col, tag) {
+export async function DropAssestDoc(db, col, tag) {
   try{
+    linkDB();
     const result = await db.collection(col).deleteMany({assetTag : tag});
     console.log(`${result.deletedCount} Documents deleted`)
   } catch(e) {
@@ -156,8 +173,9 @@ async function DropAssestDoc(db, col, tag) {
   }
 }
 
-async function DropSerialDoc(db, col, serial) {
+export async function DropSerialDoc(db, col, serial) {
   try {
+    linkDB();
     const result = await db.collection(col).deleteMany({serialNumber : serial});
     console.log(`${result.deletedCount} Documents deleted`)
   } catch(e) {
@@ -167,8 +185,9 @@ async function DropSerialDoc(db, col, serial) {
   }
 }
 
-async function ListDocs(db, col) {
+export async function ListDocs(db, col) {
   try {
+    linkDB();
     const list = await db.collection(col).find({}).toArray();
     console.log(`Documents inside '${col}':`);
     list.forEach(c => console.log(` - ${c._id}:\n\t\tassestTag : ${c.assetTag}\n\t\tserialNumber : ${c.serialNumber}`))
@@ -179,8 +198,9 @@ async function ListDocs(db, col) {
   }
 }
 
-async function MoveDoc(docTag, colSource, colDest) {
+export async function MoveDoc(docTag, colSource, colDest) {
   try {
+    linkDB();
     const sourceCollection = db.collection(colSource);
     const colDestination = db.collection(colDest);
     const doc = sourceCollection.find({assetTag : docTag})

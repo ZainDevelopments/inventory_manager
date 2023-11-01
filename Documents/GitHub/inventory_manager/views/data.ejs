@@ -7,9 +7,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="CSS\style.css">
-        <script src="JS\MongoLib.js" async defer></script>
-        <script src="JS\page.js" async defer></script>
-        <script type="module" src="JS\config.js" async defer></script>
+        <script src="../server.js" async defer></script>
     </head>
     <body>
         <div id="background">
@@ -32,15 +30,16 @@
                                 <td class="table-headers">Assigned To</td>
                                 <td class="table-headers">ID</td>
                             </thead>
-                            <% data.forEach((item) => {  %>
+                            <% items.forEach((item) => {  %>
                             <tr class="table-rows">
                                 <td class="table-rows"><p class="inner-text"><%= item.assetTag%></p></td>
                                 <td class="table-rows"><p class="inner-text"><%= item.serialNumber%></p></td>
                                 <td class="table-rows"><p class="inner-text"><%= item.deviceType%></p></td>
                                 <td class="table-rows"><p class="inner-text"><%= item.assignedTo%></p></td>
-                                <td class="table-rows"><p class="inner-text"><%= item.id%></p></td>
+                                <td class="table-rows"><p class="inner-text"><%= item._id%></p></td>
                             </tr>
                             <% })%>
+                            </tr>
                             </tr>
                         </table>
                     </div>
