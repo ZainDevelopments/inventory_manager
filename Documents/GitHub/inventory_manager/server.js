@@ -40,13 +40,23 @@ app.get('/data', async (req, res) => {
         })
     } catch (err) {
         console.error(err);
-        // Handle the error gracefully, for example, by sending an error response to the client.
+        // Handle the error by sending an error response to the client.
         res.status(500).send('Internal Server Error');
     }
 });
 
 //Start GETs
 app.get('/default', (req,res) => {
+    let vars = {
+        dbName : req.query,
+    }
+
+    console.log(vars.dbName);
+
+    if(!vars.dbName == db) {
+        changeDB();
+    }
+
     listDatabases(client).then((dbList)=> {
         ListCols(db).then((colList)=> {
             res.render('default', {
@@ -70,29 +80,7 @@ app.get('/', (req, res) => {
 app.post('/default', (req, res) => {
     const dbRes = req.body.db;
     const colRes = req.body.col;
-    // if(!dbRes || !colRes) {
-    //     res.status(200).send({status : 'Failed'})
-    // } else {
-    //     res.status(200).send({
-    //         status : 'Done',
-    //         dbName : dbRes,
-    //         colName : colRes
-    //     })
-    // }
-
-    listDatabases(client).then((dbList)=> {
-        ListCols(db).then((colList)=> {
-            res.redirect('default', {
-                dbName : dbRes,
-                colName : colRes,
-                database : dbList.databases,
-                collection : colList
-            }),
-            () => {
-                console.log("Error");
-            }
-        })
-    })
+    res.render(`default`);
 });
 
 

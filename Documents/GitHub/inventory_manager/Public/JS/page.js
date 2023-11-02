@@ -10,7 +10,7 @@ postBtn.addEventListener('click', postInfo);
 
 async function getInfo(e) {
     e.preventDefault();
-    const res = await fetch(baseUrl + 'data', {
+    const res = await fetch(baseUrl + 'data?dbName=${dbDropdown}', {
         method : 'GET'
     })
     console.log(res);
@@ -19,7 +19,7 @@ async function getInfo(e) {
 async function postInfo(e) {
     e.preventDefault();
 
-    const res = await fetch(baseUrl + 'default', 
+    const res = await fetch(baseUrl + `default`, 
     {
         method : 'POST',
         headers : {
