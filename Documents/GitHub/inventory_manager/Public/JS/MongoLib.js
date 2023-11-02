@@ -20,7 +20,6 @@ export function print(n) {
 async function linkDB() {
   try {
     await client.connect();
-    console.log("CONNECTED");
   } catch(e) {
     console.log(e);
   }

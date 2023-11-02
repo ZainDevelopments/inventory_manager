@@ -22,6 +22,7 @@ let collection = db.collection("Test");
 //Express Stuff
 app.set('view engine', 'ejs');
 app.use(express.static('Public'));
+app.use(express.json())
 
 app.get('/data', async (req, res) => {
     try {
@@ -44,7 +45,56 @@ app.get('/data', async (req, res) => {
     }
 });
 
-app.get('/', (req,res) => res.send('Hello World'));
+//Start GETs
+app.get('/default', (req,res) => {
+    listDatabases(client).then((dbList)=> {
+        ListCols(db).then((colList)=> {
+            res.render('default', {
+                database : dbList.databases,
+                collection : colList
+            }),
+            () => {
+                console.log("Error");
+            }
+        })
+    })
+});
+
+app.get('/', (req, res) => {
+    console.log("In /");
+    res.redirect('/default');
+})
+
+
+//Start POSTs
+app.post('/default', (req, res) => {
+    const dbRes = req.body.db;
+    const colRes = req.body.col;
+    // if(!dbRes || !colRes) {
+    //     res.status(200).send({status : 'Failed'})
+    // } else {
+    //     res.status(200).send({
+    //         status : 'Done',
+    //         dbName : dbRes,
+    //         colName : colRes
+    //     })
+    // }
+
+    listDatabases(client).then((dbList)=> {
+        ListCols(db).then((colList)=> {
+            res.redirect('default', {
+                dbName : dbRes,
+                colName : colRes,
+                database : dbList.databases,
+                collection : colList
+            }),
+            () => {
+                console.log("Error");
+            }
+        })
+    })
+});
+
 
 // //Start connections
 client.connect().then(()=> {
@@ -70,9 +120,15 @@ function closeDB() {
 }
 
 async function listDatabases(client) {
-    dbList = await client.db().admin().listDatabases();
+    dbList = await client.db().admin().listDatabases({nameOnly : true});
     console.log("Databases:");
     dbList.databases.forEach(db => console.log(` - ${db.name}`))
+    return dbList;
+}
+
+async function ListCols(db) {
+    const list = await db.collections();
+    return list;
 }
 
 async function CreateCol(db, colName) {

@@ -7,7 +7,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="CSS\style.css">
-        <script src="./JS/page.js" async defer></script>
+        <script src="../server.js" async defer></script>
     </head>
     <body>
         <div id="background">
@@ -16,13 +16,18 @@
                     <ul id="header-list">
                         <li id="database-list">
                             <select class="dropdown-format db-dropdown" id="database-dropdown">
-                                <option value="Database">Database</option>
-                                <option value="Test">Test</option>
+                                <option value="<%= //dbName %>"><%= //dbName %></option>
+                                <% database.forEach((db) => {  %>
+                                    <option value="<% db.name %>"><%= db.name %></option>                               
+                                <% })%>
                             </select>
                         </li>
                         <li id="collection-list">
                             <select class="dropdown-format col-dropdown" id="collection-dropdown">
-                                <option value="Collection">Collection</option>
+                                <option value="<%= //colName %>"><%= //colName %></option>
+                                <% collection.forEach((col) => {  %>
+                                    <option value="<% col.collectionName %>"><%= col.collectionName %></option>                               
+                                <% })%>
                             </select>
                         </li>
                     </ul>
@@ -35,10 +40,6 @@
                     </div>
                 </div>
             </div>
-            <form action="">
-                <button id="postBtn">Submit POST</button>
-                <button id="getBtn">Submit GET</button>
-            </form>
         </div>
     </body>
 </html>
