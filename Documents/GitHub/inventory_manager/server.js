@@ -24,50 +24,44 @@ app.set('view engine', 'ejs');
 app.use(express.static('Public'));
 app.use(express.json())
 
-app.get('/data', async (req, res) => {
-    try {
-        // const collection = db.collection("Test");
-        // const docs = await collection.find({}).toArray();
-
-        // res.render('data', {items : docs});
-
-        FindAllDocs(db, "TestTwo").then((doc) => {
-            console.log(doc)
-            res.render('data', {items : doc})
-        },
-        () => {
-            res.send("Mongo Error");
-        })
-    } catch (err) {
-        console.error(err);
-        // Handle the error by sending an error response to the client.
-        res.status(500).send('Internal Server Error');
-    }
-});
-
 //Start GETs
 app.get('/default', (req,res) => {
-    let vars = {
-        dbName : req.query,
+    const dataReq = req.query.data;
+    const colReq = req.query.col;
+
+    if(!dataReq == db) {
+        changeDB(dataReq);
     }
-
-    console.log(vars.dbName);
-
-    if(!vars.dbName == db) {
-        changeDB();
-    }
-
-    listDatabases(client).then((dbList)=> {
-        ListCols(db).then((colList)=> {
-            res.render('default', {
-                database : dbList.databases,
-                collection : colList
-            }),
-            () => {
-                console.log("Error");
-            }
+    
+    if(dataReq && colReq) {
+        listDatabases(client).then((dbList)=> {
+            ListCols(db).then((colList)=> {
+                FindAllDocs(db, colReq).then((documents) => {
+                    res.render('default', {
+                        database : dbList.databases,
+                        collection : colList,
+                        docs : documents
+                    }),
+                    () => {
+                        console.log("Error");
+                    }
+                })
+            })
         })
-    })
+    } else {
+        listDatabases(client).then((dbList)=> {
+            ListCols(db).then((colList)=> {
+                res.render('default', {
+                    database : dbList.databases,
+                    collection : colList,
+                    docs : false
+                }),
+                () => {
+                    console.log("Error");
+                }
+            })
+        })
+    }
 });
 
 app.get('/', (req, res) => {
@@ -77,11 +71,6 @@ app.get('/', (req, res) => {
 
 
 //Start POSTs
-app.post('/default', (req, res) => {
-    const dbRes = req.body.db;
-    const colRes = req.body.col;
-    res.render(`default`);
-});
 
 
 // //Start connections
@@ -109,8 +98,8 @@ function closeDB() {
 
 async function listDatabases(client) {
     dbList = await client.db().admin().listDatabases({nameOnly : true});
-    console.log("Databases:");
-    dbList.databases.forEach(db => console.log(` - ${db.name}`))
+    //console.log("Databases:");
+    //dbList.databases.forEach(db => console.log(` - ${db.name}`))
     return dbList;
 }
 

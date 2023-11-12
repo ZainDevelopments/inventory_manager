@@ -5,6 +5,15 @@ const colDropdown = document.getElementById('collection-dropdown');
 
 const baseUrl = 'http://localhost:3000/'
 
+
+//Checks when dropdown menus have been updated
+dbDropdown.addEventListener('change', function() {
+    const selectedValue = dbDropdown.value;
+    console.log('Dropdown selection changed to: ' + selectedValue);
+});
+
+
+//Get and Post methods
 getBtn.addEventListener('click', getInfo);
 postBtn.addEventListener('click', postInfo);
 
@@ -31,3 +40,4 @@ async function postInfo(e) {
         })
     });
 }
+

@@ -8,35 +8,63 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="CSS\style.css">
         <script src="../server.js" async defer></script>
+        <script src="../Public/JS/page.js" async defer></script>
     </head>
     <body>
         <div id="background">
             <div id="outer-border">
                 <div id="header">
                     <ul id="header-list">
+                        <form action="default" method="get">
                         <li id="database-list">
-                            <select class="dropdown-format db-dropdown" id="database-dropdown">
-                                <option value="<%= //dbName %>"><%= //dbName %></option>
-                                <% database.forEach((db) => {  %>
-                                    <option value="<% db.name %>"><%= db.name %></option>                               
-                                <% })%>
+                            <select name="data" class="dropdown-format db-dropdown" id="database-dropdown">
+                                <option value="placeHolder">Select Database</option>
+                                <% database.forEach((db) => { %>
+                                <% if(db.name != 'admin' && db.name != 'local'){%>
+                                        <option value="<%= db.name %>"><%= db.name %></option>                               
+                                <% }})%>
                             </select>
                         </li>
                         <li id="collection-list">
-                            <select class="dropdown-format col-dropdown" id="collection-dropdown">
-                                <option value="<%= //colName %>"><%= //colName %></option>
+                            <select name="col" class="dropdown-format col-dropdown" id="collection-dropdown">
+                                <option value="placeHolder">Select Collection</option>
                                 <% collection.forEach((col) => {  %>
-                                    <option value="<% col.collectionName %>"><%= col.collectionName %></option>                               
+                                    <option value="<%= col.collectionName %>"><%= col.collectionName %></option>                               
                                 <% })%>
                             </select>
                         </li>
+                        <button type="submit">Submit GET</button>
+                    </form>
                     </ul>
                 </div>
                 <div id="doc-body"> 
                     <h1 id="body-liner">Documents</h1>
                     <hr id="line">
                     <div id="documents">
+                        <% if(docs) { %>
+                            <table id="doc-table">
+                                <thead>
+                                    <td class="table-headers">Asset Tag</td>
+                                    <td class="table-headers">Serial Number</td>
+                                    <td class="table-headers">Device Type</td>
+                                    <td class="table-headers">Assigned To</td>
+                                    <td class="table-headers">ID</td>
+                                </thead>
+                                <% docs.forEach((doc) => {  %>
+                                <tr class="table-rows">
+                                    <td class="table-rows"><p class="inner-text"><%= doc.assetTag %></p></td>
+                                    <td class="table-rows"><p class="inner-text"><%= doc.serialNumber %></p></td>
+                                    <td class="table-rows"><p class="inner-text"><%= doc.deviceType %></p></td>
+                                    <td class="table-rows"><p class="inner-text"><%= doc.assignedTo %></p></td>
+                                    <td class="table-rows"><p class="inner-text"><%= doc._id %></p></td>
+                                </tr>
+                                <% })%>
+                                </tr>
+                                </tr>
+                            </table>
+                        <% } else { %>
                         <h2>Please select the values above</h2>
+                        <% } %>
                     </div>
                 </div>
             </div>
