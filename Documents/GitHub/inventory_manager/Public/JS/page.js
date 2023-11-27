@@ -2,7 +2,12 @@ const getBtn = document.getElementById("getBtn");
 const postBtn = document.getElementById("postBtn");
 const dbDropdown = document.getElementById('database-dropdown');
 const colDropdown = document.getElementById('collection-dropdown');
-
+const editButtons = document.getElementsByClassName('edit-buttons');
+if(editButtons) {
+    console.log(editButtons);
+}else {
+    console.log("NOPE");
+}
 const baseUrl = 'http://localhost:3000/'
 
 
@@ -12,11 +17,17 @@ dbDropdown.addEventListener('change', function() {
     console.log('Dropdown selection changed to: ' + selectedValue);
 });
 
-
-//Get and Post methods
+//Assigning Event listeners
 getBtn.addEventListener('click', getInfo);
 postBtn.addEventListener('click', postInfo);
 
+editButtons.forEach(btn => {
+    btn.addEventListener('click', toggleEdit(e.target.id));
+    console.log(e.target.id);
+});
+
+
+//Get and Post methods
 async function getInfo(e) {
     e.preventDefault();
     const res = await fetch(baseUrl + 'data?dbName=${dbDropdown}', {
@@ -41,3 +52,9 @@ async function postInfo(e) {
     });
 }
 
+
+//Functions
+function toggleEdit(id) {
+    var editableText = document.getElementsByClassName('inner-text');
+    editableText.contentEditable = !editableText.isContentEditable;
+}

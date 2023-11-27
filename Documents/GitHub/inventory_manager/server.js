@@ -20,12 +20,13 @@ let db = client.db("PS97");
 let collection = db.collection("Test");
 
 //Express Stuff
-app.set('view engine', 'ejs');
-app.use(express.static('Public'));
 app.use(express.json())
+app.use(express.static('Public'));
+app.set('view engine', 'ejs');
 
 //Start GETs
 app.get('/default', (req,res) => {
+
     const dataReq = req.query.data;
     const colReq = req.query.col;
 

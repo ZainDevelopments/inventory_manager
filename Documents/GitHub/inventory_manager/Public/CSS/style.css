@@ -113,3 +113,7 @@ body {
    border: 2px solid cyan;
    margin: 0;
 }
+
+.edit-buttons {
+   background-color: teal;
+}

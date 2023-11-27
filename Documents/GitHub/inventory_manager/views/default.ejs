@@ -7,8 +7,6 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="CSS\style.css">
-        <script src="../server.js" async defer></script>
-        <script src="../Public/JS/page.js" async defer></script>
     </head>
     <body>
         <div id="background">
@@ -52,11 +50,12 @@
                                 </thead>
                                 <% docs.forEach((doc) => {  %>
                                 <tr class="table-rows">
-                                    <td class="table-rows"><p class="inner-text"><%= doc.assetTag %></p></td>
-                                    <td class="table-rows"><p class="inner-text"><%= doc.serialNumber %></p></td>
-                                    <td class="table-rows"><p class="inner-text"><%= doc.deviceType %></p></td>
-                                    <td class="table-rows"><p class="inner-text"><%= doc.assignedTo %></p></td>
-                                    <td class="table-rows"><p class="inner-text"><%= doc._id %></p></td>
+                                    <td class="table-rows"><p class="inner-text" contenteditable="false"><%= doc.assetTag %></p></td>
+                                    <td class="table-rows"><p class="inner-text" contenteditable="false"><%= doc.serialNumber %></p></td>
+                                    <td class="table-rows"><p class="inner-text" contenteditable="false"><%= doc.deviceType %></p></td>
+                                    <td class="table-rows"><p class="inner-text" contenteditable="false"><%= doc.assignedTo %></p></td>
+                                    <td class="table-rows"><p class="inner-text" contenteditable="false"><%= doc._id %></p></td>
+                                    <td><button type="button" class="edit-buttons" id="<%= doc._id %>-btn">Edit</button></td>
                                 </tr>
                                 <% })%>
                                 </tr>
@@ -69,5 +68,6 @@
                 </div>
             </div>
         </div>
+        <script src="/Public/JS/page.js" type="module"></script>
     </body>
 </html>
