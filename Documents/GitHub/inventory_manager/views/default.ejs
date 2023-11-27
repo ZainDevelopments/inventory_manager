@@ -49,13 +49,14 @@
                                     <td class="table-headers">ID</td>
                                 </thead>
                                 <% docs.forEach((doc) => {  %>
-                                <tr class="table-rows">
+                                <tr class="table-rows" id="<%= doc._id %>">
                                     <td class="table-rows"><p class="inner-text" contenteditable="false"><%= doc.assetTag %></p></td>
                                     <td class="table-rows"><p class="inner-text" contenteditable="false"><%= doc.serialNumber %></p></td>
                                     <td class="table-rows"><p class="inner-text" contenteditable="false"><%= doc.deviceType %></p></td>
                                     <td class="table-rows"><p class="inner-text" contenteditable="false"><%= doc.assignedTo %></p></td>
-                                    <td class="table-rows"><p class="inner-text" contenteditable="false"><%= doc._id %></p></td>
-                                    <td><button type="button" class="edit-buttons" id="<%= doc._id %>-btn">Edit</button></td>
+                                    <td class="table-rows"><p class="inner-text" contenteditable="false" ><%= doc._id %></p></td>
+                                    <td class="table-btn"><button type="button" class="edit-buttons" id="<%= doc._id %>-btn">Edit</button></td>
+                                    <td class="table-btn"><button type="button" class="post-buttons" id="<%= doc._id %>-post-btn">Post</button></td>
                                 </tr>
                                 <% })%>
                                 </tr>
@@ -68,6 +69,6 @@
                 </div>
             </div>
         </div>
-        <script src="JS\page.js" async defer></script>
+        <script src="JS\editingPage.js" async defer></script>
     </body>
 </html>
