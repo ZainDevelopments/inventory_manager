@@ -11,20 +11,26 @@ if(editButtons) {
 const baseUrl = 'http://localhost:3000/'
 
 
+document.addEventListener('DOMContentLoaded', function() {
+    
+}) 
+
 //Checks when dropdown menus have been updated
 dbDropdown.addEventListener('change', function() {
     const selectedValue = dbDropdown.value;
     console.log('Dropdown selection changed to: ' + selectedValue);
 });
 
+
+for(let i = 0; i < editButtons.length; i++) {
+    const btnID = editButtons[i].id.split("-")[0];
+    editButtons[i].addEventListener('click', toggleEdit(btnID));
+}
+
+
 //Assigning Event listeners
 getBtn.addEventListener('click', getInfo);
 postBtn.addEventListener('click', postInfo);
-
-editButtons.forEach(btn => {
-    btn.addEventListener('click', toggleEdit(e.target.id));
-    console.log(e.target.id);
-});
 
 
 //Get and Post methods
@@ -55,6 +61,7 @@ async function postInfo(e) {
 
 //Functions
 function toggleEdit(id) {
+    console.log("Changed edit");
     var editableText = document.getElementsByClassName('inner-text');
     editableText.contentEditable = !editableText.isContentEditable;
 }
