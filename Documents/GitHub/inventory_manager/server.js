@@ -72,7 +72,9 @@ app.get('/', (req, res) => {
 
 
 //Start POSTs
+// app.post() {
 
+// }
 
 // //Start connections
 client.connect().then(()=> {

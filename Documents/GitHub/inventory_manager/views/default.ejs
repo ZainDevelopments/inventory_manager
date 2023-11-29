@@ -55,8 +55,9 @@
                                     <td class="table-rows"><p class="inner-text" contenteditable="false"><%= doc.deviceType %></p></td>
                                     <td class="table-rows"><p class="inner-text" contenteditable="false"><%= doc.assignedTo %></p></td>
                                     <td class="table-rows"><p class="inner-text" contenteditable="false" ><%= doc._id %></p></td>
-                                    <td class="table-btn"><button type="button" class="edit-buttons" id="<%= doc._id %>-btn">Edit</button></td>
+                                    <td class="table-btn"><button type="button" class="edit-buttons" id="<%= doc._id %>-edit-btn">Edit</button></td>
                                     <td class="table-btn"><button type="button" class="post-buttons" id="<%= doc._id %>-post-btn">Post</button></td>
+                                    <td class="table-btn"><button type="button" class="delete-buttons" id="<%= doc._id %>-delete-btn">Delete</button></td>
                                 </tr>
                                 <% })%>
                                 </tr>
