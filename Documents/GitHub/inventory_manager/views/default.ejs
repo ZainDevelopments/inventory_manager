@@ -16,7 +16,7 @@
                         <form action="default" method="get">
                         <li id="database-list">
                             <select name="data" class="dropdown-format db-dropdown" id="database-dropdown">
-                                <option value="placeHolder">Select Database</option>
+                                <option id="db-seleceted" value="placeHolder">Select Database</option>
                                 <% database.forEach((db) => { %>
                                 <% if(db.name != 'admin' && db.name != 'local'){%>
                                         <option value="<%= db.name %>"><%= db.name %></option>                               
@@ -25,7 +25,7 @@
                         </li>
                         <li id="collection-list">
                             <select name="col" class="dropdown-format col-dropdown" id="collection-dropdown">
-                                <option value="placeHolder">Select Collection</option>
+                                <option id="col-seleceted" value="placeHolder">Select Collection</option>
                                 <% collection.forEach((col) => {  %>
                                     <option value="<%= col.collectionName %>"><%= col.collectionName %></option>                               
                                 <% })%>
@@ -50,19 +50,20 @@
                                 </thead>
                                 <% docs.forEach((doc) => {  %>
                                 <tr class="table-rows" id="<%= doc._id %>">
-                                    <td class="table-rows"><p class="inner-text" contenteditable="false"><%= doc.assetTag %></p></td>
-                                    <td class="table-rows"><p class="inner-text" contenteditable="false"><%= doc.serialNumber %></p></td>
-                                    <td class="table-rows"><p class="inner-text" contenteditable="false"><%= doc.deviceType %></p></td>
-                                    <td class="table-rows"><p class="inner-text" contenteditable="false"><%= doc.assignedTo %></p></td>
-                                    <td class="table-rows"><p class="inner-text" contenteditable="false" ><%= doc._id %></p></td>
-                                    <td class="table-btn"><button type="button" class="edit-buttons" id="<%= doc._id %>-edit-btn">Edit</button></td>
-                                    <td class="table-btn"><button type="button" class="post-buttons" id="<%= doc._id %>-post-btn">Post</button></td>
-                                    <td class="table-btn"><button type="button" class="delete-buttons" id="<%= doc._id %>-delete-btn">Delete</button></td>
+                                    <form action="default" method="post">
+                                        <td class="table-rows"><p class="inner-text" contenteditable="false"><%= doc.assetTag %></p></td>
+                                        <td class="table-rows"><p class="inner-text" contenteditable="false"><%= doc.serialNumber %></p></td>
+                                        <td class="table-rows"><p class="inner-text" contenteditable="false"><%= doc.deviceType %></p></td>
+                                        <td class="table-rows"><p class="inner-text" contenteditable="false"><%= doc.assignedTo %></p></td>
+                                        <td class="table-rows"><p class="inner-text" contenteditable="false" ><%= doc._id %></p></td>
+                                        <td class="table-btn"><button type="button" class="edit-buttons" id="<%= doc._id %>-edit-btn">Edit</button></td>
+                                        <td class="table-btn"><button type="button" class="post-buttons" id="<%= doc._id %>-post-btn">Post</button></td>
+                                        <td class="table-btn"><button type="button" class="delete-buttons" id="<%= doc._id %>-delete-btn">Delete</button></td>
+                                    </form>
                                 </tr>
                                 <% })%>
-                                </tr>
-                                </tr>
                             </table>
+                            <button type="button" id="add-btn">Add a Doc</button>
                         <% } else { %>
                         <h2>Please select the values above</h2>
                         <% } %>

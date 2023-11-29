@@ -9,15 +9,17 @@ const app = express();
 const port = process.env.PORT_KEY; //Port 3000
 
 //Mongo
-const {MongoClient} = require('mongodb');
+const {MongoClient, ObjectId} = require('mongodb');
 if(process.env.MONGO_KEY !== 'production') {
     require('dotenv').config();
 }
 const MONGO_KEY = process.env.MONGO_KEY;
 const uri = MONGO_KEY;
 const client = new MongoClient(uri);
-let db = client.db("PS97");
-let collection = db.collection("Test");
+var db = client.db("PS97");
+var collection = db.collection("Test");
+
+var baseUrl = '/default';
 
 //Express Stuff
 app.use(express.json())
@@ -25,15 +27,20 @@ app.use(express.static('Public'));
 app.set('view engine', 'ejs');
 
 //Start GETs
-app.get('/default', (req,res) => {
+app.get(baseUrl, (req,res) => {
 
     const dataReq = req.query.data;
     const colReq = req.query.col;
 
-    if(!dataReq == db) {
+    if(dataReq != db && dataReq != undefined) {
         changeDB(dataReq);
     }
-    
+    if(colReq != collection && colReq != undefined) {
+        changeCollection(colReq);
+    }
+
+    // console.log(`DATABASE: ${dataReq}\nCOLLECTION: ${colReq}`);
+
     if(dataReq && colReq) {
         listDatabases(client).then((dbList)=> {
             ListCols(db).then((colList)=> {
@@ -72,9 +79,82 @@ app.get('/', (req, res) => {
 
 
 //Start POSTs
-// app.post() {
+app.post(baseUrl, async (req, res) => {
+    console.log();
+    console.log('Request Received');
+    const data = req.body;
+    console.log("INFORMATION RECEIVED: ");
+    console.log(data);
 
-// }
+    const filter = {_id : new ObjectId(data.id)};
+    const update = {
+        $set: {
+            assetTag : data.assetTag,
+            serialNumber : data.serialNumber,
+            deviceType : data.deviceType,
+            assignedTo : data.assignedTo
+        }
+    };
+
+    try {
+        // console.log("INSIDE TRY STATE");
+        const result = await collection.updateOne(filter, update);
+        console.log("DATABASE SUCCESSFULLY UPDATED: ", result);
+        res.json({
+            STATUS: "SUCCESS",
+        });
+    } catch (err) {
+        console.log("ERROR UPDATING DATABASE: " + err);
+        res.json({
+            STATUS: "FAILED",
+        });
+    }
+})
+
+app.post('/default' + "/delete", async (req, res) => {
+    console.log();
+    console.log("INSIDE DELETE");
+    console.log('Request Received');
+    const data = req.body;
+    console.log("INFORMATION RECEIVED: ");
+    console.log(data);
+
+    const filter = {_id : new ObjectId(data.id)};
+    try {
+        const result = await collection.deleteOne(filter);
+        console.log("DATABASE SUCCESSFULLY UPDATED: ", result);
+        res.json({
+            STATUS : "SUCCESS"
+        })
+    } catch (e) {
+        console.log("ERROR UPDATING DATABASE: " + err);
+        res.json({
+            STATUS : "FAILED"
+        })
+    }
+})
+
+app.post(baseUrl + "/add", async (req, res) => {
+    console.log();
+    console.log("INSIDE ADD");
+    console.log('Request Received');
+    const data = req.body;
+    console.log("INFORMATION RECEIVED: ");
+    console.log(data);
+    
+    try {
+        const result = await collection.insertOne(data);
+        console.log("DATABASE SUCCESSFULLY UPDATED: ", result);
+        res.json({
+            STATUS: "SUCCESS"
+        });
+    } catch (e) {
+        console.log("ERROR UPDATING DATABASE: " + e);
+        res.json({
+            STATUS: "FAILED"
+        });
+    }
+})
 
 // //Start connections
 client.connect().then(()=> {
@@ -88,10 +168,12 @@ client.connect().then(()=> {
 
     //Helper functinos
 function changeDB(name) {
+    // console.log(`CHANGING DB NAME TO ${name}`);
     db = client.db(name); 
 }
 
 function changeCollection(name) {
+    // console.log(`CHANGING COL NAME TO ${name}`);
     collection = db.collection(name);
 }
 
@@ -127,4 +209,17 @@ async function FindDoc(db, col, tag) {
     const doc = await db.collection(col).find({assetTag : tag});
     console.log(`${tag} found from ${col}`);
     return doc;
+}
+
+async function UpdateDoc(filter, options) {
+    console.log("IN UPDATE DOC");
+
+    const result = await collection.updateOne(filter, options, (err, result) => {
+        if(err) {
+            console.log("UPDATE FAILED: ", err);
+        } else {
+            console.log("UPDATE SUCCESSFUl");
+        }
+    });
+    return result;
 }

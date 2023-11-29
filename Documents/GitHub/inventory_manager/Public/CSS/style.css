@@ -94,6 +94,10 @@ body {
    margin-bottom: 5%;
 }
 
+#doc-body {
+   position: relative;
+}
+
 #doc-table {
    border: 1px solid ;
    margin-left: 1%;
@@ -126,4 +130,15 @@ body {
 
 .post-buttons {
    background-color: rgb(62, 121, 62);
+}
+.delete-buttons {
+   background-color: #BF1363;
+}
+
+#add-btn {
+   background-color: #c0c489;
+   position: absolute;
+   bottom: 0;
+   left: 50%;
+   transform: translateX(-50%);
 }
