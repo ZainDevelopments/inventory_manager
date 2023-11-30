@@ -4,14 +4,27 @@ const editButtons = document.getElementsByClassName('edit-buttons');
 const postButtons = document.getElementsByClassName("post-buttons");
 const deleteButtons = document.getElementsByClassName("delete-buttons");
 const addButton = document.getElementById("add-btn");
+const submitButton = document.getElementById("submit-button");
+const addCollButton = document.getElementById("add-col-btn");
+const delCollButton = document.getElementById("delete-col-btn");
 
 const baseUrl = 'http://localhost:3000/default'
 
-
-//Checks when dropdown menus have been updated
-// dbDropdown.addEventListener('change', function() {
+// Checks when dropdown menus have been updated
+// dbDropdown.addEventListener('change', async function() {
 //     const selectedValue = dbDropdown.value;
+//     console.log("SELECTED VALUE: " + selectedValue);
 //     console.log('Dropdown selection changed to: ' + selectedValue);
+
+//     if(selectedValue != "placeHolder") {
+//         const res = await fetch(baseUrl + "/data?dbChosen=true", {
+//             method : 'GET'
+//         })
+//     } else {
+//         const res = await fetch(baseUrl + "/data?dbChosen=false", {
+//             method : 'GET'
+//         })
+//     }
 // });
 
 //Adding event listeners to every edit button
@@ -45,11 +58,65 @@ for(let btn = 0; btn < deleteButtons.length; btn++) {
 }
 
 //Adding event listener to the add button
-addButton.addEventListener('click', function(e) {
-    CreateNewDoc();
-});
+if(addButton) {
+    addButton.addEventListener('click', function(e) {
+        CreateNewDoc();
+    });
+}
+
+//Adding event listener to the submit button
+submitButton.addEventListener('click', function() {
+    submitData();
+}); 
+
+//Adding event listener to the add collection button
+addCollButton.addEventListener('click', function() {
+    CreateNewCol();
+})
+
+delCollButton.addEventListener('click', function() {
+    DeleteCollection();
+})
+
 
 //Functions
+async function CreateNewCol() {
+    const name = prompt("What is the name for the new Collection?");
+
+    const data = {
+        colName : name
+    }
+    
+    const options = {
+        method : "POST",
+        headers : {
+            "Content-Type" : 'application/json'
+        },
+        body : JSON.stringify(data)
+    }
+
+    const res = await fetch(baseUrl + '/createCol', options);
+    const response = await res.json();
+    console.log(response);
+}
+
+async function DeleteCollection() {
+    console.log("Deleting Current Collection");
+
+    const options = {
+        method : "POST",
+        headers : {
+            "Content-Type" : 'application/json'
+        },
+        body : JSON.stringify()
+    }
+
+    const res = await fetch(baseUrl + '/deleteCol', options);
+    const response = await res.json();
+    console.log(response);
+}
+
+//Allows textboxes to be editable
 function toggleEdit(id, btnID) {
     // console.log("Text ID: " + id);
 
@@ -72,6 +139,7 @@ function toggleEdit(id, btnID) {
     }
 }
 
+//Saves edits to the database
 async function postEdit(id, btnID) {
     // console.log(`Button '${btnID}' was pressed for textbox '${id}'`);
     const editableText = document.getElementById(id);
@@ -98,6 +166,7 @@ async function postEdit(id, btnID) {
     console.log(response);
 }
 
+//Deletes a document in the database
 async function deleteDoc(id, btnID) {
     const editableText = document.getElementById(id);
     const editParent = editableText.children;
@@ -117,6 +186,7 @@ async function deleteDoc(id, btnID) {
     console.log(response);
 }
 
+//Creates a new document in the database
 async function CreateNewDoc() {
     const _assetTag = prompt("What is the assest tag?");
     const _serialNumber = prompt("What is the serial number?"); 

@@ -12,7 +12,7 @@ postBtn.addEventListener('click', postInfo);
 //Get and Post methods
 async function getInfo(e) {
     e.preventDefault();
-    const res = await fetch(baseUrl + 'data?dbName=${dbDropdown}', {
+    const res = await fetch(baseUrl + '?data=${dbDropdown}', {
         method : 'GET'
     })
     console.log(res);

@@ -156,6 +156,45 @@ app.post(baseUrl + "/add", async (req, res) => {
     }
 })
 
+    //Create new Collection
+app.post(baseUrl + '/createCol', async (req, res) => {
+    console.log();
+    console.log("INSIDE CREATE COL");
+    console.log('Request Received');
+    const collectionName = req.body;
+    console.log("INFORMATION RECEIVED: ");
+
+    try {
+        const result = await db.createCollection(collectionName.colName);
+        console.log("DATABASE SUCCESSFULLY UPDATED: ", result);
+        res.json({
+            STATUS: "SUCCESS"
+        });
+    } catch (e) {
+        console.log("ERROR UPDATING DATABASE: " + e);
+        res.json({
+            STATUS: "FAILED"
+        });
+    }
+})
+
+app.post(baseUrl + '/deleteCol', async (req, res) => {
+    console.log();
+    console.log("INSIDE DELETE COL");
+    try {
+        const result = await db.collection(collection.collectionName).drop();        
+        console.log("DATABASE SUCCESSFULLY UPDATED: ", result);
+        res.json({
+            STATUS: "SUCCESS"
+        });
+    } catch (e) {
+        console.log("ERROR UPDATING DATABASE: " + e);
+        res.json({
+            STATUS: "FAILED"
+        });
+    }
+})
+
 // //Start connections
 client.connect().then(()=> {
     console.log("Connected to Mongo");
