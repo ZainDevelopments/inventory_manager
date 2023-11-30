@@ -24,3 +24,4 @@
 11/12/2023 8:00pm - 4:55am - Finally got GET and POST request to work with front end.
 11/27/2023 2pm - 2am - Worked on adding text editing funtionality and also adding a Post button to update database (WIP).
 11/29/2023 9am - 6:28pm - Worked on making working GET POST requests. Also added fully functioning Edit, Post, Delete and Add buttons into the website.
+11/30/2023 12am - 2:40am - Addeding fully functioning add and delete buttons to add or delete collections from MongoDB
