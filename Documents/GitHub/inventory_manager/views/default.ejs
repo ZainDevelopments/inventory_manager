@@ -18,22 +18,29 @@
                             <select name="data" class="dropdown-format db-dropdown" id="database-dropdown">
                                 <option id="db-seleceted" value="placeHolder">Select Database</option>
                                 <% database.forEach((db) => { %>
-                                <% if(db.name != 'admin' && db.name != 'local'){%>
+                                    <% if(db.name != 'admin' && db.name != 'local'){%>
                                         <option value="<%= db.name %>"><%= db.name %></option>                               
                                 <% }})%>
                             </select>
                         </li>
-                        <li id="collection-list">
-                            <select name="col" class="dropdown-format col-dropdown" id="collection-dropdown">
-                                <option id="col-seleceted" value="placeHolder">Select Collection</option>
-                                <% collection.forEach((col) => {  %>
-                                    <option value="<%= col.collectionName %>"><%= col.collectionName %></option>                               
-                                <% })%>
-                            </select>
-                            <button type="button" id="add-col-btn">+</button>
-                            <button type="button" id="delete-col-btn">-</button>
-                        </li>
-                        <button id="submit-button" type="submit">Submit GET</button>
+                        <div id="encased">
+                            <li id="collection-list">
+                                <select name="col" class="dropdown-format col-dropdown" id="collection-dropdown">
+                                    <option id="col-seleceted" value="placeHolder">Select Collection</option>
+                                    <% collection.forEach((col) => {  %>
+                                        <option value="<%= col.collectionName %>"><%= col.collectionName %></option>                               
+                                    <% //console.log(col.collectionName)
+                                    })%>
+                                </select>
+                                <button type="button" id="add-col-btn">+</button>
+                                <button type="button" id="delete-col-btn">-</button>
+                            </li>
+                        </div>
+                        <div id="submit-encased">
+                            <li id="button-list">
+                                <button id="submit-button" type="submit">Get Data</button>
+                            </li>
+                        </div>
                     </form>
                     </ul>
                 </div>

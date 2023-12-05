@@ -10,22 +10,31 @@ const delCollButton = document.getElementById("delete-col-btn");
 
 const baseUrl = 'http://localhost:3000/default'
 
-// Checks when dropdown menus have been updated
-// dbDropdown.addEventListener('change', async function() {
-//     const selectedValue = dbDropdown.value;
-//     console.log("SELECTED VALUE: " + selectedValue);
-//     console.log('Dropdown selection changed to: ' + selectedValue);
+// Checks when data dropdown menu has been updated
+dbDropdown.addEventListener('change', async function() {
+    var encasedEle = document.getElementById("encased");
+    const selectedValue = dbDropdown.value;
+    //Check to see if the value has been changed and to what
+    // console.log("SELECTED VALUE: " + selectedValue);
+    // console.log('Dropdown selection changed to: ' + selectedValue);
 
-//     if(selectedValue != "placeHolder") {
-//         const res = await fetch(baseUrl + "/data?dbChosen=true", {
-//             method : 'GET'
-//         })
-//     } else {
-//         const res = await fetch(baseUrl + "/data?dbChosen=false", {
-//             method : 'GET'
-//         })
-//     }
-// });
+    if(selectedValue != "placeHolder") {
+        encasedEle.style.display = "block";
+    } else {
+        encasedEle.style.display = "none";
+    }
+});
+
+colDropdown.addEventListener('change', async function() {
+    var encasedEle = document.getElementById("submit-encased");
+    const selectedValue = dbDropdown.value;
+
+    if(selectedValue != "placeHolder") {
+        encasedEle.style.display = "block";
+    } else {
+        encasedEle.style.display = "none";
+    }
+});
 
 //Adding event listeners to every edit button
 for(let i = 0; i < editButtons.length; i++) {
@@ -80,6 +89,21 @@ delCollButton.addEventListener('click', function() {
 
 
 //Functions
+// function showCollectionDropdown() {
+//     var databaseDropdown = document.getElementById("database-dropdown");
+//     var collectionDropdown = document.getElementById("collection-dropdown");
+
+//     // Check the selected value of database dropdown
+//     if (databaseDropdown.value !== "placeHolder") {
+//         // If a database is selected, show collection dropdown
+//         collectionDropdown.style.display = "block";
+//     } else {
+//         // If the default placeholder is selected, hide collection dropdown
+//         collectionDropdown.style.display = "none";
+//     }
+// }
+
+
 async function CreateNewCol() {
     const name = prompt("What is the name for the new Collection?");
 
@@ -130,10 +154,10 @@ function toggleEdit(id, btnID) {
             const btn = document.getElementById(btnID);
             if(editChild[child].isContentEditable) {
                 editChild[child].contentEditable = false;
-                btn.style.backgroundColor = 'teal';
+                btn.style.backgroundColor = '#52c4c4';
             } else {
                 editChild[child].contentEditable = true;
-                btn.style.backgroundColor = 'red';
+                btn.style.backgroundColor = '#f1606a';
             }
         }
     }

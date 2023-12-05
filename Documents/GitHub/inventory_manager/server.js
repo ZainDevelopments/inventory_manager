@@ -10,6 +10,7 @@ const port = process.env.PORT_KEY; //Port 3000
 
 //Mongo
 const {MongoClient, ObjectId} = require('mongodb');
+const { type } = require("os");
 if(process.env.MONGO_KEY !== 'production') {
     require('dotenv').config();
 }
@@ -22,7 +23,7 @@ var collection = db.collection("Test");
 var baseUrl = '/default';
 
 //Express Stuff
-app.use(express.json())
+app.use(express.json());
 app.use(express.static('Public'));
 app.set('view engine', 'ejs');
 
@@ -63,6 +64,7 @@ app.get(baseUrl, (req,res) => {
                     database : dbList.databases,
                     collection : colList,
                     docs : false
+
                 }),
                 () => {
                     console.log("Error");
@@ -246,7 +248,7 @@ async function FindAllDocs(db, col) {
 
 async function FindDoc(db, col, tag) {
     const doc = await db.collection(col).find({assetTag : tag});
-    console.log(`${tag} found from ${col}`);
+    console.log(`${tag} found from ${col[0].collectionName}`);
     return doc;
 }
 
